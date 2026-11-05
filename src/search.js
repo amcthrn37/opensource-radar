@@ -49,7 +49,8 @@ export const LANGUAGES = [
   "C", "Ruby", "PHP", "Swift", "Kotlin", "Dart", "Scala", "Elixir",
   "Haskell", "Lua", "R", "Shell", "HTML", "CSS", "Vue", "Svelte", "Julia",
   "Perl", "Zig", "Clojure", "Elm", "OCaml", "Objective-C", "PowerShell",
-  "Jupyter Notebook",
+  "Jupyter Notebook", "Solidity", "Assembly", "Erlang", "F#", "Groovy",
+  "Nix", "Dockerfile", "HCL",
 ];
 
 export const DEFAULT_FILTERS = {
