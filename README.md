@@ -6,7 +6,7 @@ OpenSource Radar helps developers find open issues they can contribute to, acros
 
 🌐 **Live site:** [opensource-radar.com](https://opensource-radar.com/)
 
-![](docs/screenshot.png)
+![OpenSource Radar showing good first Python issues from popular, active projects](docs/screenshot.png)
 
 ## ✨ Features
 
