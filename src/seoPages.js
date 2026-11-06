@@ -238,8 +238,12 @@ export const LANGUAGE_PAGES = [
   ),
 ];
 
+// "/about/" and "/about" are the same page.
+export const withoutTrailingSlash = (pathname) =>
+  pathname.length > 1 ? pathname.replace(/\/+$/, "") || "/" : pathname;
+
 export const languagePageForPath = (pathname) => {
-  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  const path = withoutTrailingSlash(pathname);
   return LANGUAGE_PAGES.find((page) => page.path === path) ?? null;
 };
 
