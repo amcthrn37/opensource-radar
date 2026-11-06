@@ -14,7 +14,7 @@ import SearchBar from "./components/SearchBar";
 import { githubUrl } from "./github";
 import { ABOUT_PATH, isPlainClick } from "./links";
 import { setPageMeta } from "./pageMeta";
-import { ABOUT, GUIDE, GUIDE_PATH, HOME } from "./seoPages";
+import { ABOUT, GUIDE, GUIDE_PATH, HOME, withoutTrailingSlash } from "./seoPages";
 import {
   MAX_LIMIT_RETRIES,
   fetchShared,
@@ -176,7 +176,7 @@ const searchLimitMessage = (signedIn, signInAvailable) =>
   }.`;
 
 const routeFromPath = () => {
-  const { pathname } = window.location;
+  const pathname = withoutTrailingSlash(window.location.pathname);
   if (pathname === ABOUT_PATH) return "about";
   if (pathname === GUIDE_PATH) return "guide";
   return "search";

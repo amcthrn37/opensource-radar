@@ -15,6 +15,7 @@ import {
   LANGUAGE_PAGES,
   SITE_URL,
   languagePageForPath,
+  withoutTrailingSlash,
 } from "../src/seoPages.js";
 import { escapeHtml, pageBody, renderPage, sitemapXml } from "../scripts/prerender.js";
 
@@ -74,6 +75,18 @@ describe("structured data", () => {
     expect(ofType("WebSite").publisher["@id"]).toBe(organization["@id"]);
     const logo = organization.logo.replace(SITE_URL, "public");
     expect(fs.existsSync(logo)).toBe(true);
+  });
+});
+
+describe("withoutTrailingSlash", () => {
+  it("treats an address with a trailing slash as the same page", () => {
+    expect(withoutTrailingSlash("/about/")).toBe("/about");
+    expect(withoutTrailingSlash("/first-contribution//")).toBe("/first-contribution");
+    expect(withoutTrailingSlash("/about")).toBe("/about");
+  });
+
+  it("leaves the home page alone", () => {
+    expect(withoutTrailingSlash("/")).toBe("/");
   });
 });
 
@@ -161,6 +174,26 @@ describe("renderPage", () => {
   it("links the home page to every language page", () => {
     const html = pageBody(HOME);
     for (const page of LANGUAGE_PAGES) expect(html).toContain(`href="${page.path}"`);
+  });
+
+  it("shows a switched-off search box until the app loads on search pages", () => {
+    for (const page of [HOME, python]) {
+      const html = pageBody(page);
+      expect(html).toMatch(/<input[^>]*placeholder="Search issues on GitHub"[^>]*disabled/);
+      expect(html).toContain("Loading issues…");
+    }
+  });
+
+  it("leaves the search box off pages without search", () => {
+    for (const page of [ABOUT, GUIDE]) {
+      expect(pageBody(page)).not.toContain("first-paint-search");
+    }
+  });
+
+  it("hides the stand-in when JavaScript is off", () => {
+    expect(renderPage(template, HOME)).toContain(
+      "<noscript><style>.first-paint-search { display: none; }</style></noscript>",
+    );
   });
 
   it("escapes page text", () => {
