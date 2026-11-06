@@ -151,7 +151,7 @@ opensource-radar/
 - [x] Logo and sharing preview image
 - [x] Project details on issue cards and a popular-projects filter
 - [x] Recent searches, regional language filter and About page
-- [ ] Saved searches
+- [x] Saved searches
 
 ## 🤝 Contributing
 
